@@ -71,6 +71,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _decrementCounter(){
+    setState((){
+      _counter--;
+    });
+  }
+
   void _nextLayout() {
     setState(() {
       _layout = _nextEnumLayout(_layout);
@@ -156,7 +162,13 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Layout',
             backgroundColor: Colors.blue,
             onTap: _nextLayout,
-          )
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.exposure_minus_1 , color: Colors.yellow),
+            label: 'Increment',
+            backgroundColor: Colors.blue,
+            onTap: _decrementCounter,
+          ),
         ],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
