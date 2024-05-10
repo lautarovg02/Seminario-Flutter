@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
@@ -60,6 +62,17 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   var _layout = MainAxisAlignment.center;
 
+  Color _backgroundColor = Colors.white;
+  List<Color> backgroundColors = [
+    Colors.red,
+    Colors.blue,
+    Colors.orange,
+    Colors.green,
+    Colors.pink,
+    Colors.purple,
+    Colors.grey
+  ];
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -71,8 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _decrementCounter(){
-    setState((){
+  void _decrementCounter() {
+    setState(() {
       _counter--;
     });
   }
@@ -80,6 +93,14 @@ class _MyHomePageState extends State<MyHomePage> {
   void _nextLayout() {
     setState(() {
       _layout = _nextEnumLayout(_layout);
+    });
+  }
+
+  void changeBackgraoundColorRandomly() {
+    setState(() {
+      final random = Random();
+      _backgroundColor =
+          backgroundColors[random.nextInt(backgroundColors.length)];
     });
   }
 
@@ -97,6 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      backgroundColor: _backgroundColor,
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
@@ -158,17 +180,23 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: _incrementCounter,
           ),
           SpeedDialChild(
+            child: const Icon(Icons.exposure_minus_1, color: Colors.yellow),
+            label: 'Increment',
+            backgroundColor: Colors.blue,
+            onTap: _decrementCounter,
+          ),
+          SpeedDialChild(
             child: const Icon(Icons.layers_outlined, color: Colors.yellow),
             label: 'Layout',
             backgroundColor: Colors.blue,
             onTap: _nextLayout,
           ),
           SpeedDialChild(
-            child: const Icon(Icons.exposure_minus_1 , color: Colors.yellow),
-            label: 'Increment',
+            child: const Icon(Icons.color_lens, color: Colors.yellow),
+            label: 'Change Background Color',
             backgroundColor: Colors.blue,
-            onTap: _decrementCounter,
-          ),
+            onTap: changeBackgraoundColorRandomly,
+          )
         ],
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
